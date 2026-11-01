@@ -147,20 +147,32 @@ ul { margin: 0; padding: 0; list-style: none; }
 .header.is-hidden, .header.is-tucked { transform: translateY(-100%); }
 
 .mobile-menu {
-  position: fixed; inset: 0; z-index: 99; background: var(--ink); color: var(--white);
-  padding: calc(150px + env(safe-area-inset-top, 0px)) var(--gutter) calc(40px + env(safe-area-inset-bottom, 0px));
-  display: flex; flex-direction: column; justify-content: space-between;
-  clip-path: inset(0 0 100% 0); transition: clip-path .8s var(--ease); visibility: hidden;
+  position: fixed; inset: 0; z-index: 99; color: var(--white);
+  padding: calc(92px + env(safe-area-inset-top, 0px)) 22px calc(22px + env(safe-area-inset-bottom, 0px));
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+  background-color: var(--ink);
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); visibility: hidden;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
 .mobile-menu.is-open { clip-path: inset(0 0 0 0); visibility: visible; }
-.mobile-menu nav { overflow: auto; }
-.mobile-menu nav a { display: block; font-family: var(--display); text-transform: uppercase; font-size: clamp(1.55rem, 7vw, 2.4rem); line-height: 1.35; color: var(--white); }
-.mobile-menu nav a:hover { color: var(--red); }
-.mobile-menu p { color: var(--stone); font-size: 14px; }
-body.menu-open .header__in { background: transparent; border-color: rgba(255,255,255,.22); }
+.mobile-menu nav { overflow: visible; }
+.mobile-menu nav a { display: flex; align-items: center; gap: 14px; font-family: var(--display); text-transform: none; font-size: clamp(1.45rem, 6.4vw, 2rem); letter-spacing: -.02em; line-height: 1.15; color: var(--white); padding: 13px 2px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.mobile-menu nav a span { font-family: var(--body); font-size: 12px; letter-spacing: .12em; color: var(--red); width: 26px; flex: none; }
+.mobile-menu nav a[aria-current="page"] span { color: var(--white); }
+.mobile-menu nav a:hover, .mobile-menu nav a:active { color: var(--red); }
+.mobile-menu__foot { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 8px; }
+.mobile-menu__foot .pill { background: var(--red); color: var(--white); }
+.mobile-menu__foot .pill b { background: var(--white); color: var(--red); }
+.mobile-menu p { color: rgba(255,255,255,.62); font-size: 14px; line-height: 1.6; }
+.mobile-menu p a { color: var(--white); }
+body.menu-open { overflow: hidden; }
+body.menu-open .header { transform: none; }
+body.menu-open .header__in { background: rgba(24,24,24,.78); border-color: rgba(255,255,255,.2); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
 body.menu-open .header .header__logo .dark { opacity: 0; }
 body.menu-open .header .header__logo .light { opacity: 1; }
-body.menu-open .menu-btn { border-color: rgba(255,255,255,.22); }
+body.menu-open .menu-btn { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); }
 body.menu-open .menu-btn span { background: var(--white); }
 body.menu-open .menu-btn span:first-child { transform: translateY(3.25px) rotate(45deg); }
 body.menu-open .menu-btn span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
@@ -458,21 +470,27 @@ html:not(.anim) .consult__pin { --p: 1; }
 
 @media (max-width: 900px) {
   .consult__pin { --p: 1; --ix: 0%; --iy: 0%; --rad: 0px; height: auto; min-height: 0; overflow: hidden; }
-  .consult__shade { background: linear-gradient(180deg, rgba(24,24,24,.88) 0%, rgba(24,24,24,.62) 42%, rgba(24,24,24,.78) 100%); opacity: 1; }
+  .consult__shade { background: linear-gradient(180deg, rgba(24,24,24,.9) 0%, rgba(24,24,24,.72) 38%, rgba(24,24,24,.82) 100%); opacity: 1; }
   .consult__side, .consult__frame, .consult__cursor, .consult__lens, .cdim { display: none; }
-  .mobile-menu { overflow-y: auto; -webkit-overflow-scrolling: touch; padding-top: calc(96px + env(safe-area-inset-top, 0px)); }
-  .consult__content { position: relative; inset: auto; padding: 72px 0 28px; justify-content: flex-start; }
-  .consult__content .wrap { gap: 14px; align-items: start; }
-  .consult__aside { max-width: none; padding-bottom: 0; }
-  .consult__steps { grid-template-columns: 1fr; gap: 8px; margin-top: 0; }
-  .consult__steps li { padding: 14px; }
+  .consult__content { position: relative; inset: auto; width: 100%; padding: 64px 0 28px; justify-content: flex-start; }
+  .consult__content .wrap { display: flex; flex-direction: column; align-items: stretch; gap: 18px; width: 100%; min-width: 0; }
+  .consult h2 { font-size: clamp(1.7rem, 7.4vw, 2.15rem); max-width: 14ch; }
+  .consult h2 .line { overflow: visible; }
+  .consult__aside { max-width: none; width: 100%; padding-bottom: 0; gap: 12px; }
+  .consult__aside p { font-size: 14px; }
+  .consult__aside .pill { max-width: 100%; font-size: 13px; }
+  .consult__steps { grid-template-columns: 1fr; gap: 10px; margin: 4px 0 0; width: 100%; min-width: 0; }
+  .consult__steps li { padding: 16px; overflow: visible; }
   .consult__steps li.is-on, .consult__steps li:hover { transform: none; }
+  .consult__steps b { font-size: 1.05rem; overflow-wrap: anywhere; }
+  .consult__steps p { font-size: 13px; overflow-wrap: anywhere; }
   .consult__rail { display: none; }
-  .st__top { margin-bottom: 10px; }
-  .st__n { font-size: 1.35rem; }
-  .consult h2 { font-size: clamp(2rem, 9vw, 3rem); }
-  .consult__aside { gap: 16px; }
-  .pill { height: auto; min-height: 46px; white-space: normal; padding-top: 6px; padding-bottom: 6px; }
+  .st__top { margin-bottom: 10px; gap: 8px; }
+  .st__n { font-size: 1.25rem; }
+  .st__state { flex: none; }
+  .pill { height: 40px; min-height: 0; font-size: 13px; gap: 8px; padding: 0 4px 0 14px; white-space: nowrap; }
+  .pill b { width: 30px; height: 30px; }
+  .pill svg { width: 13px; height: 13px; }
 }
 
 /* ───────── Team ───────── */
@@ -664,7 +682,10 @@ html:not(.anim) .consult__pin { --p: 1; }
 }
 @media (max-width: 1100px) {
   .nav, .nav-cta, .header__meta { display: none; }
-  .menu-btn { display: flex; }
+  .menu-btn { display: flex; width: 44px; height: 44px; margin: 6px 8px 6px auto; border: 1px solid rgba(255,255,255,.28); border-radius: 14px; background: rgba(255,255,255,.06); }
+  .header__in { height: 56px; margin: 10px 12px 0; border-radius: 18px; }
+  .header__logo { width: 96px; border-right: 0; }
+  .header.is-solid .menu-btn { border-color: var(--line); background: transparent; }
 }
 @media (max-width: 900px) {
   .welcome { padding: 48px 0 40px; border-radius: 24px 24px 0 0; }
@@ -811,16 +832,19 @@ html:not(.anim) .consult__pin { --p: 1; }
 
 <div class="mobile-menu" id="mobileMenu">
   <nav aria-label="Mobile">
-    <a href="https://ace-uae.net/">Home</a>
-    <a href="https://ace-uae.net/about-us/">About us</a>
-    <a href="https://ace-uae.net/expertise/">Expertise</a>
-    <a href="https://ace-uae.net/projects/">Projects</a>
-    <a href="https://ace-uae.net/our-leadership/">Leadership</a>
-    <a href="https://ace-uae.net/ace-news-and-blogs/">Insights</a>
-    <a href="https://careers.ace-uae.net/">Careers</a>
-    <a href="https://ace-uae.net/contact-us/">Contact us</a>
+    <a href="https://ace-uae.net/" aria-current="page"><span>01</span>Home</a>
+    <a href="https://ace-uae.net/about-us/"><span>02</span>About us</a>
+    <a href="https://ace-uae.net/expertise/"><span>03</span>Expertise</a>
+    <a href="https://ace-uae.net/projects/"><span>04</span>Projects</a>
+    <a href="https://ace-uae.net/our-leadership/"><span>05</span>Leadership</a>
+    <a href="https://ace-uae.net/ace-news-and-blogs/"><span>06</span>Insights</a>
+    <a href="https://careers.ace-uae.net/"><span>07</span>Careers</a>
+    <a href="https://ace-uae.net/contact-us/"><span>08</span>Contact us</a>
   </nav>
-  <p>info@ace-uae.net<br>+971 2 627 3988</p>
+  <div class="mobile-menu__foot">
+    <a class="pill" href="https://ace-uae.net/contact-us/">Get in touch <b><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 7v4h13.17l-3.58-3.59L16 6l6 6-6 6-1.41-1.41L18.17 13H3V7h2z"/></svg></b></a>
+    <p><a href="mailto:info@ace-uae.net">info@ace-uae.net</a><br><a href="tel:+97126273988">+971 2 627 3988</a></p>
+  </div>
 </div>
 
 <main>
@@ -1333,13 +1357,15 @@ html:not(.anim) .consult__pin { --p: 1; }
   /* ───────── Mobile menu ───────── */
   const menuBtn = document.querySelector('.menu-btn');
   const menu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', () => {
-    const open = !menu.classList.contains('is-open');
+  const setMenu = open => {
     menu.classList.toggle('is-open', open);
     document.body.classList.toggle('menu-open', open);
     menuBtn.setAttribute('aria-expanded', open);
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
+  };
+  menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
   /* ───────── Hero video: pause for reduced motion, resume if autoplay was blocked ───────── */
   const heroVid = document.querySelector('.hero__vid');
