@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>ACE | Architectural & Engineering Consultancy — Home, option 2</title>
 <meta name="description" content="ACE is a global architectural and engineering consultancy delivering integrated, high-performance solutions since 1975.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +46,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background: var(--white); }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
@@ -148,14 +149,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .mobile-menu {
   position: fixed; inset: 0; z-index: 99; color: var(--white);
-  padding: calc(92px + env(safe-area-inset-top, 0px)) 22px calc(22px + env(safe-area-inset-bottom, 0px));
-  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
   background-color: var(--ink);
   background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
   background-size: 56px 56px;
   clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); visibility: hidden;
-  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
+.mobile-menu__scroll {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+  padding: calc(92px + env(safe-area-inset-top, 0px)) 22px calc(22px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+.mobile-menu__scroll > * { flex-shrink: 0; }
 .mobile-menu.is-open { clip-path: inset(0 0 0 0); visibility: visible; }
 .mobile-menu nav { overflow: visible; }
 .mobile-menu nav a { display: flex; align-items: center; gap: 14px; font-family: var(--display); text-transform: none; font-size: clamp(1.45rem, 6.4vw, 2rem); letter-spacing: -.02em; line-height: 1.15; color: var(--white); padding: 13px 2px; border-bottom: 1px solid rgba(255,255,255,.12); }
@@ -451,20 +459,26 @@ html:not(.anim) .consult__steps li .st__n { color: var(--red); }
   .consult__shade { background: linear-gradient(180deg, rgba(24,24,24,.9) 0%, rgba(24,24,24,.72) 38%, rgba(24,24,24,.82) 100%); opacity: 1; }
   .consult__side, .consult__frame, .consult__cursor, .consult__lens, .cdim { display: none; }
   .consult__content { position: relative; inset: auto; width: 100%; padding: 64px 0 28px; justify-content: flex-start; }
-  .consult__content .wrap { display: flex; flex-direction: column; align-items: stretch; gap: 18px; width: 100%; min-width: 0; }
+  .consult__content .wrap { display: flex; flex-direction: column; align-items: stretch; gap: 22px; width: 100%; min-width: 0; }
   .consult h2 { font-size: clamp(1.7rem, 7.4vw, 2.15rem); max-width: 14ch; }
   .consult h2 .line { overflow: visible; }
-  .consult__aside { max-width: none; width: 100%; padding-bottom: 0; gap: 12px; }
+  .consult__aside { max-width: none; width: 100%; padding-bottom: 0; gap: 16px; }
   .consult__aside p { font-size: 14px; }
   .consult__aside .pill { max-width: 100%; font-size: 13px; }
-  .csheet { margin-top: 16px; width: 100%; min-width: 0; }
-  .csheet__dim { display: none; }
+  .csheet { margin-top: 24px; width: 100%; min-width: 0; }
+  .csheet__dim { display: grid; height: 18px; margin: 0 2px 10px; }
+  .csheet__dim span { font-size: 10px; letter-spacing: .06em; }
+  .csheet__dim span em { top: -10px; padding: 0 6px; }
   .consult__steps { grid-template-columns: 1fr; width: 100%; min-width: 0; border-radius: 16px; }
-  .consult__steps li { padding: 14px 16px; grid-template-rows: auto; align-items: center; }
+  .consult__steps li {
+    padding: 16px 18px;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto;
+    column-gap: 14px; row-gap: 6px; align-items: start;
+  }
   .consult__steps li + li { border-left: 0; border-top: 1px solid rgba(255,255,255,.14); }
-  .st__n { font-size: 1.4rem; margin-bottom: 4px; }
-  .st__draw { width: 48px; }
-  .consult__steps b { font-size: 1.05rem; overflow-wrap: anywhere; }
+  .st__n { grid-column: 1; grid-row: 1; font-size: 1.35rem; margin-bottom: 0; }
+  .st__draw { grid-column: 2; grid-row: 1 / -1; align-self: center; width: 48px; }
+  .consult__steps b { grid-column: 1; grid-row: 2; font-size: 1.05rem; margin-bottom: 0; line-height: 1.2; overflow-wrap: anywhere; }
   .consult__steps p { display: none; }
   .pill { height: 40px; min-height: 0; font-size: 13px; gap: 8px; padding: 0 4px 0 14px; white-space: nowrap; }
   .pill b { width: 30px; height: 30px; }
@@ -805,7 +819,7 @@ body.menu-open .header[class] .menu-btn { border-color: rgba(255,255,255,.28); b
 body.menu-open .header[class] .menu-btn span { background: var(--white); }
 
 /* ───────── Mobile menu ───────── */
-.mobile-menu { justify-content: flex-start; gap: 28px; padding: calc(86px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); }
+.mobile-menu__scroll { justify-content: flex-start; gap: 28px; padding: calc(86px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); }
 .mobile-menu nav { display: flex; flex-direction: column; }
 .mobile-menu nav a { justify-content: space-between; min-height: 58px; padding: 10px 2px; font-size: clamp(1.6rem, 7.4vw, 2.2rem);
   opacity: 0; transform: translateY(16px); transition: opacity .2s var(--ease), transform .2s var(--ease), color .3s var(--ease); }
@@ -949,7 +963,7 @@ html { -webkit-tap-highlight-color: transparent; }
   .header.is-hidden { transform: translateY(calc(-100% - 12px)); }
 
   /* Menu: compact links + section chips */
-  .mobile-menu { gap: 20px; padding-top: calc(78px + max(8px, env(safe-area-inset-top, 0px))); }
+  .mobile-menu__scroll { gap: 20px; padding-top: calc(78px + max(8px, env(safe-area-inset-top, 0px))); touch-action: pan-x pan-y; }
   .mobile-menu nav a { min-height: 52px; padding: 8px 2px; font-size: clamp(1.45rem, 6.6vw, 1.95rem); }
   .mm-jump { display: block; opacity: 0; transform: translateY(16px); transition: opacity .2s, transform .2s; }
   .mobile-menu.is-open .mm-jump { opacity: 1; transform: none; transition: opacity .6s var(--ease) .45s, transform .7s var(--ease) .45s; }
@@ -976,12 +990,14 @@ html { -webkit-tap-highlight-color: transparent; }
   .pj-track { position: relative; }
   .pj-pin .cdots { padding: 0 var(--gutter); }
 
-  /* Clients: single-row swipeable logo carousel */
-  .cgrid { position: relative; grid-template-columns: none; grid-template-rows: auto; grid-auto-flow: column; grid-auto-columns: 42%; gap: 8px;
+  /* Clients: single-row swipeable logo carousel — 3 narrower logos per view */
+  .cgrid { position: relative; grid-template-columns: none; grid-template-rows: auto; grid-auto-flow: column; grid-auto-columns: calc((100% - 16px) / 3); gap: 8px;
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     margin-inline: calc(var(--gutter) * -1); padding: 6px var(--gutter); scroll-padding-inline: var(--gutter); }
   .cgrid::-webkit-scrollbar { display: none; }
-  .ctile { scroll-snap-align: start; }
+  .ctile { scroll-snap-align: start; border-radius: 12px; }
+  .ctile img { max-width: 58%; max-height: 42%; }
+  .ctile--crop img { width: 82%; height: 44%; }
   .clients .cdots { margin-top: 10px; }
 
   /* Insights: swipeable article cards */
@@ -995,19 +1011,27 @@ html { -webkit-tap-highlight-color: transparent; }
   .consult h2 { max-width: none; }
   .pj-pin .cdots { margin-top: 0; }
 
-  /* Process: scroll walks through the three steps along a red rail */
+  /* Process: desktop glass card, stacked — number + title left, icon right */
   .consult h2 .line { overflow: hidden; padding-bottom: .08em; }
-  .consult__steps { position: relative; }
-  .consult__steps::before, .consult__steps::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; z-index: 2; pointer-events: none; }
-  .consult__steps::before { background: rgba(255,255,255,.12); }
-  .consult__steps::after { background: var(--red); transform-origin: 50% 0; transform: scaleY(var(--sp, 0)); }
-  .consult__steps li { padding: 16px 16px 16px 20px; cursor: pointer; }
-  .consult__steps li::before { display: none; }
-  .consult__steps p { display: block; grid-column: 1 / -1; font-size: 13px; margin-top: 2px; color: rgba(255,255,255,.32); }
-  .st__draw { width: 54px; opacity: .3; transition: opacity .6s var(--ease); }
-  .st__draw :is(path, rect, circle, line) { vector-effect: none; stroke-width: 2.2; stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .csheet__dim { display: grid; height: 18px; margin: 0 2px 10px; }
+  .csheet__dim span { font-size: 10px; letter-spacing: .06em; }
+  .csheet__dim span em { top: -10px; padding: 0 6px; }
+  .consult__steps { position: relative; grid-template-columns: 1fr; width: 100%; min-width: 0; border-radius: 16px; }
+  .consult__steps li {
+    padding: 16px 18px; cursor: pointer;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto;
+    column-gap: 14px; row-gap: 6px; align-items: start;
+  }
+  .consult__steps li + li { border-left: 0; border-top: 1px solid rgba(255,255,255,.14); }
+  .consult__steps li::before { display: block; }
+  .st__n { grid-column: 1; grid-row: 1; font-size: 1.35rem; margin-bottom: 0; }
+  .consult__steps b { grid-column: 1; grid-row: 2; font-size: 1.05rem; margin-bottom: 0; line-height: 1.2; overflow-wrap: anywhere; }
+  .st__draw { grid-column: 2; grid-row: 1 / -1; align-self: center; width: 48px; opacity: .55; transition: opacity .6s var(--ease), color .6s var(--ease); }
+  .st__draw :is(path, rect, circle, line) { vector-effect: none; stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .consult__steps p { display: none; }
   .consult__steps li.is-on .st__draw, .consult__steps li.is-done .st__draw { opacity: 1; }
   .consult__steps li.is-done .st__draw { color: var(--red); }
+  .consult__steps li.is-on .st__draw { color: rgba(255,255,255,.9); }
 
   /* What we do: pinned, vertical scroll drives the cards sideways (like desktop) */
   .anim .svc__pin { height: 100vh; height: 100svh; min-height: 0; max-height: 100svh; padding: calc(18px + env(safe-area-inset-top, 0px)) 0 18px; gap: 12px; overflow: hidden; }
@@ -1061,25 +1085,24 @@ html { -webkit-tap-highlight-color: transparent; }
   .anim .consult__side--r small::before { width: 6px; height: 6px; }
   .anim .consult__content {
     position: absolute; inset: 0; width: 100%;
-    padding: calc(52px + env(safe-area-inset-top, 0px)) 0 18px;
+    padding: calc(52px + env(safe-area-inset-top, 0px)) 0 max(16px, env(safe-area-inset-bottom, 0px));
     justify-content: center; box-sizing: border-box;
   }
-  .anim .consult__content .wrap { display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; min-width: 0; }
-  .anim .consult h2 { font-size: clamp(1.5rem, 6.4vw, 1.95rem); max-width: none; }
+  .anim .consult__content .wrap {
+    display: flex; flex-direction: column; align-items: stretch; justify-content: center;
+    gap: 14px; width: 100%; min-width: 0; max-height: 100%;
+  }
+  .anim .consult h2 { font-size: clamp(1.4rem, 5.8vw, 1.85rem); max-width: none; flex: none; }
   .anim .consult h2 .line { overflow: hidden; padding-bottom: .06em; }
-  .anim .consult__aside { max-width: none; width: 100%; padding-bottom: 0; gap: 10px; }
+  .anim .consult__aside { max-width: none; width: 100%; padding-bottom: 0; gap: 12px; flex: none; }
   .anim .consult__aside p { display: none; }
-  .anim .csheet { margin-top: 6px; width: 100%; min-width: 0; }
-  .anim .csheet__dim { display: grid; height: 16px; margin-bottom: 8px; }
-  .anim .consult__steps { grid-template-columns: 1fr; width: 100%; min-width: 0; border-radius: 14px; }
-  .anim .consult__steps::before, .anim .consult__steps::after { display: none; }
-  .anim .consult__steps li { padding: 11px 14px; grid-template-rows: auto; align-items: center; }
-  .anim .consult__steps li + li { border-left: 0; border-top: 1px solid rgba(255,255,255,.14); }
-  .anim .consult__steps li::before { display: block; }
-  .anim .consult__steps p { display: none; }
-  .anim .st__draw { width: 40px; opacity: .55; }
-  .anim .st__n { font-size: 1.2rem; margin-bottom: 2px; }
-  .anim .consult__steps b { font-size: .98rem; margin-bottom: 0; }
+  .anim .csheet { margin-top: 18px; width: 100%; min-width: 0; flex: none; }
+  .anim .csheet__dim { display: grid; height: 16px; margin: 0 2px 10px; }
+  .anim .consult__steps { border-radius: 16px; }
+  .anim .consult__steps li { padding: 14px 16px; }
+  .anim .st__draw { width: 44px; }
+  .anim .st__n { font-size: 1.3rem; }
+  .anim .consult__steps b { font-size: 1.02rem; }
   /* Soft handoff: Team rises over the pinned consult instead of a hard cut */
   .anim .consult { position: relative; z-index: 1; }
   .team { position: relative; z-index: 2; background: var(--white); }
@@ -1088,11 +1111,19 @@ html { -webkit-tap-highlight-color: transparent; }
   .anim .svc__head p { display: none; }
   .anim .svc-card__txt p { display: none; }
   .anim .consult__aside .pill { font-size: 12px; }
-  .anim .csheet__dim { display: none; }
+  .anim .consult__content .wrap { gap: 10px; }
+  .anim .consult h2 { font-size: clamp(1.25rem, 5.2vw, 1.55rem); }
+  .anim .csheet { margin-top: 14px; }
+  .anim .consult__steps li { padding: 12px 14px; row-gap: 4px; }
+  .anim .st__draw { width: 40px; }
+  .anim .st__n { font-size: 1.15rem; }
+  .anim .consult__steps b { font-size: .95rem; }
 }
 @media (max-width: 900px) and (max-height: 640px) {
   .anim .svc-card__more { display: none; }
-  .anim .consult h2 { font-size: 1.4rem; }
+  .anim .consult h2 { font-size: 1.2rem; }
+  .anim .consult__aside .pill { display: none; }
+  .anim .consult__steps li { padding: 10px 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
@@ -1132,6 +1163,7 @@ html { -webkit-tap-highlight-color: transparent; }
 </header>
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__scroll" data-lenis-prevent>
   <nav aria-label="Mobile">
     <a href="https://ace-uae.net/" aria-current="page" style="--i:0"><span class="t">Home</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 7v4h13.17l-3.58-3.59L16 6l6 6-6 6-1.41-1.41L18.17 13H3V7h2z"/></svg></a>
     <a href="https://ace-uae.net/about-us/" style="--i:1"><span class="t">About us</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 7v4h13.17l-3.58-3.59L16 6l6 6-6 6-1.41-1.41L18.17 13H3V7h2z"/></svg></a>
@@ -1155,6 +1187,7 @@ html { -webkit-tap-highlight-color: transparent; }
       <a href="mailto:info@ace-uae.net"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg><span><small>Email us</small>info@ace-uae.net</span></a>
     </div>
     <div class="mm-meta"><span class="mm-clock"><i></i>Abu Dhabi <time data-tz="Asia/Dubai" data-short>--:--</time></span><div class="socials" id="mmSocials"></div></div>
+  </div>
   </div>
 </div>
 
@@ -1651,10 +1684,27 @@ html { -webkit-tap-highlight-color: transparent; }
     vCount.innerHTML = `<b>${pad(vi + 1)}</b> / ${pad(quotes.length)}`;
     vStart = performance.now();
   }
-  document.getElementById('vPrev').addEventListener('click', () => showVoice(vi - 1));
-  document.getElementById('vNext').addEventListener('click', () => showVoice(vi + 1));
-  stage.addEventListener('mouseenter', () => vPaused = true);
-  stage.addEventListener('mouseleave', () => { vPaused = false; vStart = performance.now() - (parseFloat(vTimer.dataset.p || 0) * DUR); });
+  let vPointers = 0, vHover = false, vIdle = null;
+  const voiceBox = stage.parentElement;
+  const voiceHover = window.matchMedia('(hover: hover)').matches;
+  function pauseVoice() { vPaused = true; clearTimeout(vIdle); }
+  function resumeVoice() {
+    clearTimeout(vIdle);
+    vIdle = setTimeout(() => {
+      if (vPointers || vHover) return;
+      vPaused = false;
+      vStart = performance.now() - (parseFloat(vTimer.dataset.p || 0) * DUR);
+    }, 1800);
+  }
+  document.getElementById('vPrev').addEventListener('click', () => { showVoice(vi - 1); pauseVoice(); resumeVoice(); });
+  document.getElementById('vNext').addEventListener('click', () => { showVoice(vi + 1); pauseVoice(); resumeVoice(); });
+  if (voiceHover) {
+    voiceBox.addEventListener('pointerenter', () => { vHover = true; pauseVoice(); });
+    voiceBox.addEventListener('pointerleave', () => { vHover = false; resumeVoice(); });
+  }
+  voiceBox.addEventListener('pointerdown', () => { vPointers++; pauseVoice(); }, { passive: true });
+  window.addEventListener('pointerup', () => { if (!vPointers) return; vPointers--; resumeVoice(); }, { passive: true });
+  window.addEventListener('pointercancel', () => { if (!vPointers) return; vPointers--; resumeVoice(); }, { passive: true });
   // Keep the stage as tall as the longest quote so the page never jumps
   function sizeStage() {
     stage.style.minHeight = '';
@@ -1667,13 +1717,14 @@ html { -webkit-tap-highlight-color: transparent; }
   window.addEventListener('resize', sizeStage);
   // Swipe between testimonials on touch
   let tx0 = null, ty0 = 0;
-  stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; vPaused = true; }, { passive: true });
+  stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; pauseVoice(); }, { passive: true });
   stage.addEventListener('touchend', e => {
     if (tx0 !== null) {
       const dx = e.changedTouches[0].clientX - tx0, dy = e.changedTouches[0].clientY - ty0;
       if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) showVoice(vi + (dx < 0 ? 1 : -1));
     }
-    tx0 = null; vPaused = false; vStart = performance.now() - (parseFloat(vTimer.dataset.p || 0) * DUR);
+    tx0 = null;
+    resumeVoice();
   }, { passive: true });
   (function tick(now) {
     if (!vPaused) {
@@ -1800,9 +1851,12 @@ html { -webkit-tap-highlight-color: transparent; }
     const playing = () => auto && visible && !held && !document.hidden && mobileQ.matches;
     function schedule() {
       clearTimeout(timer);
-      dots.classList.toggle('is-paused', !playing());
-      dots.classList.toggle('alt');
-      if (playing() && pos.length > 1) timer = setTimeout(() => go(active + 1), autoplay);
+      const on = playing();
+      dots.classList.toggle('is-paused', !on);
+      if (on && pos.length > 1) {
+        dots.classList.toggle('alt');
+        timer = setTimeout(() => go(active + 1), autoplay);
+      }
     }
     function go(i) { if (!pos.length) return; trackEl.scrollTo({ left: pos[(i + pos.length) % pos.length], behavior: 'smooth' }); }
     function sync() {
@@ -1824,23 +1878,45 @@ html { -webkit-tap-highlight-color: transparent; }
           .map(el => Math.round(Math.min(max, Math.max(0, el.offsetLeft - pad))));
         raw = [...new Set(raw)].sort((a, b) => a - b);
         if (page) {
-          const step = trackEl.clientWidth * .7;
+          const sample = [...trackEl.querySelectorAll(items)].find(el => el.offsetParent !== null);
+          const gap = parseFloat(getComputedStyle(trackEl).columnGap) || 0;
+          const step = sample ? (sample.offsetWidth + gap) * 3 - 2 : trackEl.clientWidth;
           raw = raw.reduce((acc, x) => { if (!acc.length || x - acc[acc.length - 1] >= step) acc.push(x); return acc; }, []);
           if (raw.length && raw[raw.length - 1] < max - 4) raw.push(Math.round(max));
         }
         pos = raw.filter((x, i) => !i || x - raw[i - 1] > 4);
       }
       dots.innerHTML = pos.length > 1 ? pos.map((_, i) => `<button type="button" aria-label="${label} ${i + 1} of ${pos.length}"><i></i></button>`).join('') : '';
-      [...dots.children].forEach((b, i) => b.addEventListener('click', () => { hold(); go(i); }));
+      [...dots.children].forEach((b, i) => b.addEventListener('click', () => { engage(); release(); go(i); }));
       active = -1; sync();
     }
-    function hold() {
-      held = true; schedule();
+    let pointers = 0, hovering = false;
+    const hoverOK = window.matchMedia('(hover: hover)').matches;
+    function engage() {
+      held = true;
       clearTimeout(idleT);
-      idleT = setTimeout(() => { held = false; schedule(); }, 6000);
+      schedule();
     }
+    function release() {
+      clearTimeout(idleT);
+      idleT = setTimeout(() => {
+        if (pointers || hovering) return;
+        held = false;
+        schedule();
+      }, 1800);
+    }
+    function down() { pointers++; engage(); }
+    function up() { if (!pointers) return; pointers--; release(); }
     trackEl.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
-    trackEl.addEventListener('touchstart', hold, { passive: true });
+    trackEl.addEventListener('pointerdown', down, { passive: true });
+    trackEl.addEventListener('wheel', () => { engage(); release(); }, { passive: true });
+    dots.addEventListener('pointerdown', down);
+    if (hoverOK) {
+      trackEl.addEventListener('pointerenter', () => { hovering = true; engage(); });
+      trackEl.addEventListener('pointerleave', () => { hovering = false; if (!pointers) release(); });
+    }
+    window.addEventListener('pointerup', up, { passive: true });
+    window.addEventListener('pointercancel', up, { passive: true });
     if (auto) {
       new IntersectionObserver(es => { visible = es[0].isIntersecting; schedule(); }, { threshold: .45 }).observe(trackEl);
       document.addEventListener('visibilitychange', schedule);
