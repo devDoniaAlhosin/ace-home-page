@@ -4649,36 +4649,41 @@ var yx=$('[data-yx]');if(yx){var bs=$$('.yx__b',yx);function cur(){return Math.m
 var yt=$('[data-yt]');if(yt){swipe($('.yt__card',yt),function(){$('[data-yt-n]',yt).click()},function(){$('[data-yt-p]',yt).click()})}
 })();
 </script>
-<style id="ace-demo-rail-css">
-html{scrollbar-width:thin;scrollbar-color:#111 transparent}
-html::-webkit-scrollbar{width:5px;height:5px}
-html::-webkit-scrollbar-track{background:transparent}
-html::-webkit-scrollbar-thumb{background:#111;border-radius:99px}
-html::-webkit-scrollbar-thumb:hover{background:#000}
-body::-webkit-scrollbar{width:5px;height:5px}
-body::-webkit-scrollbar-track{background:transparent}
-body::-webkit-scrollbar-thumb{background:#111;border-radius:99px}
-.ace-demo-rail{--ease:cubic-bezier(.22,.8,.2,1);position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:9999;display:flex;flex-direction:column;gap:6px;width:48px;padding:10px 6px 10px 8px;border:1px solid rgba(255,255,255,.08);border-right:0;border-radius:18px 0 0 18px;background:rgba(12,12,12,.96);color:#fff;backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);box-shadow:-10px 0 32px rgba(0,0,0,.28),inset 1px 0 0 rgba(255,255,255,.06);font-family:Poppins,"Helvetica Neue",Arial,sans-serif;transition:width .32s var(--ease),padding .32s var(--ease),box-shadow .32s var(--ease)}
-.ace-demo-rail__label{display:none;padding:2px 8px 4px;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.38);white-space:nowrap}
-.ace-demo-rail a{position:relative;display:grid;grid-template-columns:1fr;align-items:center;justify-items:center;min-height:40px;padding:0 4px;border-radius:11px;color:rgba(255,255,255,.55);font-size:11px;font-weight:600;letter-spacing:.04em;line-height:1;text-decoration:none;overflow:hidden;transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease)}
-.ace-demo-rail a b{font:inherit;font-weight:600}
-.ace-demo-rail a span{display:none;font-size:10px;font-weight:400;letter-spacing:0;color:rgba(255,255,255,.55);white-space:nowrap}
-.ace-demo-rail a:hover{background:rgba(255,255,255,.08);color:#fff;transform:translateX(-1px)}
-.ace-demo-rail a.is-active{background:#EF3340;color:#fff;box-shadow:0 8px 18px -8px rgba(239,51,64,.85)}
-.ace-demo-rail a.is-active span{color:rgba(255,255,255,.9)}
-.ace-demo-rail a:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.ace-demo-rail:hover,.ace-demo-rail:focus-within{width:156px;padding:12px 10px 12px 12px;box-shadow:-14px 0 40px rgba(0,0,0,.34),inset 1px 0 0 rgba(255,255,255,.08)}
-.ace-demo-rail:hover .ace-demo-rail__label,.ace-demo-rail:focus-within .ace-demo-rail__label{display:block}
-.ace-demo-rail:hover a,.ace-demo-rail:focus-within a{grid-template-columns:36px 1fr;justify-items:start;gap:2px 0;min-height:44px;padding:8px 10px}
-.ace-demo-rail:hover a b,.ace-demo-rail:focus-within a b{grid-column:1}
-.ace-demo-rail:hover a span,.ace-demo-rail:focus-within a span{display:block;grid-column:2;grid-row:1 / span 2;align-self:center;padding-left:4px}
-@media (max-width:640px){.ace-demo-rail{top:auto;bottom:0;right:50%;transform:translateX(50%);width:auto;flex-direction:row;align-items:center;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));border:1px solid rgba(255,255,255,.08);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 28px rgba(0,0,0,.28)}.ace-demo-rail__label,.ace-demo-rail a span{display:none!important}.ace-demo-rail a{min-width:48px;min-height:40px;justify-items:center}.ace-demo-rail:hover,.ace-demo-rail:focus-within{width:auto;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px))}.ace-demo-rail:hover a,.ace-demo-rail:focus-within a{grid-template-columns:1fr;min-height:40px;padding:0 4px}}
+<style id="ace-switch-profile-css">
+.ace-profiles{--ease:cubic-bezier(.2,.7,.1,1);position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:10000;display:flex;flex-direction:column;gap:8px;width:56px;padding:12px 8px 12px 10px;border:1px solid rgba(255,255,255,.1);border-right:0;border-radius:18px 0 0 18px;background:rgba(12,12,12,.94);color:#fff;backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15);box-shadow:-12px 0 32px rgba(0,0,0,.28);font-family:var(--ace-font-body,Poppins,"Helvetica Neue",Arial,sans-serif);transition:width .32s var(--ease),padding .32s var(--ease)}
+.ace-profiles__label{display:none;padding:2px 8px 6px;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.38)}
+.ace-profiles a{position:relative;display:grid;grid-template-columns:1fr;justify-items:center;align-items:center;gap:0;min-height:46px;padding:6px;border-radius:12px;color:rgba(255,255,255,.55);text-decoration:none;overflow:hidden;transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease)}
+.ace-profiles a:hover{background:rgba(255,255,255,.08);color:#fff;transform:translateX(-1px)}
+.ace-profiles a.is-active{background:#EF3340;color:#fff;box-shadow:0 8px 18px -8px rgba(239,51,64,.85)}
+.ace-profiles a:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ace-profiles__ico{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:rgba(255,255,255,.08)}
+.ace-profiles a.is-active .ace-profiles__ico{background:rgba(0,0,0,.18)}
+.ace-profiles__ico svg{width:16px;height:16px}
+.ace-profiles__txt{display:none;min-width:0}
+.ace-profiles__txt b{display:block;font-family:var(--ace-font-display,bw,Poppins,sans-serif);font-weight:700;font-size:.92rem;letter-spacing:-.01em;line-height:1.1}
+.ace-profiles__txt span{display:block;margin-top:2px;font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.02em}
+.ace-profiles a.is-active .ace-profiles__txt span{color:rgba(255,255,255,.86)}
+.ace-profiles:hover,.ace-profiles:focus-within{width:200px;padding:14px 12px 14px 12px}
+.ace-profiles:hover .ace-profiles__label,.ace-profiles:focus-within .ace-profiles__label{display:block}
+.ace-profiles:hover a,.ace-profiles:focus-within a{grid-template-columns:32px 1fr;justify-items:start;gap:0 10px;min-height:52px;padding:8px 10px}
+.ace-profiles:hover .ace-profiles__txt,.ace-profiles:focus-within .ace-profiles__txt{display:block}
+@media (max-width:720px){.ace-profiles{top:auto;bottom:0;right:50%;transform:translateX(50%);width:auto;flex-direction:row;align-items:center;gap:6px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));border:1px solid rgba(255,255,255,.1);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 28px rgba(0,0,0,.28)}.ace-profiles__label,.ace-profiles__txt{display:none!important}.ace-profiles a{min-width:52px;min-height:44px;justify-items:center}.ace-profiles:hover,.ace-profiles:focus-within{width:auto;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}.ace-profiles:hover a,.ace-profiles:focus-within a{grid-template-columns:1fr;min-height:44px;padding:6px}}
 </style>
-<nav class="ace-demo-rail" aria-label="Demo versions">
-  <div class="ace-demo-rail__label">Demos</div>
-  <a href="index.html"><b>V1</b><span>index</span></a>
-  <a href="ace-homepage-v2.html" class="is-active" aria-current="page"><b>V2</b><span>notched bento</span></a>
-  <a href="ace-home-v3.html"><b>V3</b><span>Corporate 2</span></a>
+<nav class="ace-profiles" aria-label="Switch profile">
+  <div class="ace-profiles__label">Switch profile</div>
+  <a href="ace-homepage-v2-r2.html" class="is-active" aria-current="page">
+    <span class="ace-profiles__ico" aria-hidden="true">
+      <svg viewBox="0 0 96 96" fill="none"><path d="M14 72V28l20-12 20 12v44" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M34 28v44M54 40h28v32H14" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M18 78h60" stroke="currentColor" stroke-width="6" stroke-linecap="round" opacity=".55"/></svg>
+    </span>
+    <span class="ace-profiles__txt"><b>Website</b><span>Homepage</span></span>
+  </a>
+  <a href="ace-signature-package/ace-signature-package/ace-signature-50-years-options.html">
+    <span class="ace-profiles__ico" aria-hidden="true">
+      <svg viewBox="0 0 96 96" fill="none"><rect x="16" y="24" width="64" height="48" rx="4" stroke="currentColor" stroke-width="6"/><path d="M18 28l30 22 30-22" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="ace-profiles__txt"><b>Signature</b><span>Email</span></span>
+  </a>
 </nav>
 </body>
 </html>
+
