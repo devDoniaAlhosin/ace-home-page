@@ -2131,7 +2131,7 @@ html body .xn .xn__r{margin-right:var(--n)}
   <script>/* ACE: enable entrance animations before the hero paints (skipped with reduced motion). The timeout is a safety net. */
   (function(){try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window){document.documentElement.classList.add('ace-anim');setTimeout(function(){var l=document.querySelectorAll('.ace-hero [data-anim],.ace-hero [data-split],.ace-car__viewport[data-anim]');for(var i=0;i<l.length;i++)l[i].classList.add('is-in');},document.documentElement.classList.contains('ace-has-loader')?7800:2600);}}catch(e){}})();</script>
   <section class="ace-hero xh" aria-labelledby="ace-hero-title">
-<div class="xh__bg" aria-hidden="true"><img src="https://ace-uae.net/wp-content/uploads/2025/08/Sheikh-Sultan-Bin.webp" alt="" class="is-on" fetchpriority="high"><img src="https://ace-uae.net/wp-content/uploads/2025/06/Al-Mamzar-Tower-1.webp" alt="" loading="lazy"><img src="https://ace-uae.net/wp-content/uploads/2025/06/Modon_Alnaseem-3.webp" alt="" loading="lazy"><img src="https://ace-uae.net/wp-content/uploads/2024/12/Family-Mosque-cover.webp" alt="" loading="lazy"><video muted loop playsinline autoplay preload="metadata" poster="https://ace-uae.net/wp-content/uploads/2025/08/Sheikh-Sultan-Bin.webp"><source src="ace-film-720.mp4" type="video/mp4"><source src="https://ace-uae.net/wp-content/uploads/2025/08/1080.mp4" type="video/mp4"></video><span class="xh__scrim"></span></div>
+<div class="xh__bg" aria-hidden="true"><img src="https://ace-uae.net/wp-content/uploads/2025/08/Sheikh-Sultan-Bin.webp" alt="" class="is-on" fetchpriority="high"><img src="https://ace-uae.net/wp-content/uploads/2025/06/Al-Mamzar-Tower-1.webp" alt="" loading="lazy"><img src="https://ace-uae.net/wp-content/uploads/2025/06/Modon_Alnaseem-3.webp" alt="" loading="lazy"><img src="https://ace-uae.net/wp-content/uploads/2024/12/Family-Mosque-cover.webp" alt="" loading="lazy"><video muted playsinline autoplay preload="metadata" poster="https://ace-uae.net/wp-content/uploads/2025/08/Sheikh-Sultan-Bin.webp"><source src="ace-film-720.mp4" type="video/mp4"><source src="https://ace-uae.net/wp-content/uploads/2025/08/1080.mp4" type="video/mp4"></video><span class="xh__scrim"></span></div>
 <div class="ace-bp" aria-hidden="true" data-ace-bp>
       <div class="ace-bp__grid"></div>
       <div class="ace-bp__fine"></div>
@@ -3639,15 +3639,23 @@ html body .xn .xn__r{margin-right:var(--n)}
 </script>
 
 <script>
-(function(){var s=document.querySelector('.xh');if(!s)return;var v=s.querySelector('video'),tc=s.querySelector('[data-xh-tc]'),lb=s.querySelector('[data-xh-label]'),b=s.querySelector('[data-xh-toggle]'),im=[].slice.call(s.querySelectorAll('.xh__bg img')),i=0,man=false,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+(function(){var s=document.querySelector('.xh');if(!s)return;var v=s.querySelector('video'),tc=s.querySelector('[data-xh-tc]'),lb=s.querySelector('[data-xh-label]'),b=s.querySelector('[data-xh-toggle]'),im=[].slice.call(s.querySelectorAll('.xh__bg img')),i=0,man=false,rm=matchMedia('(prefers-reduced-motion:reduce)').matches,TAIL=7,end=0;
 function f(t){t=Math.floor(t||0);return ('0'+Math.floor(t/60)).slice(-2)+':'+('0'+t%60).slice(-2)}
 function st(p){b.dataset.state=p?'playing':'paused';lb.textContent=p?'Pause':'Play'}
+function arm(){if(!v.duration||!isFinite(v.duration))return;end=Math.max(.2,v.duration-TAIL)}
+function loopBack(){v.currentTime=0;if(!man&&!v.paused)v.play().catch(function(){})}
 if(!rm)setInterval(function(){im[i].classList.remove('is-on');i=(i+1)%im.length;im[i].classList.add('is-on')},5200);
 if(v){if(rm){v.removeAttribute('autoplay');v.pause()}
-v.addEventListener('playing',function(){s.classList.add('is-video');st(true)});v.addEventListener('pause',function(){st(false)});
-v.addEventListener('timeupdate',function(){tc.textContent=f(v.currentTime)});
-b.addEventListener('click',function(){if(v.paused){man=false;v.play()}else{man=true;v.pause()}});
-new IntersectionObserver(function(e){if(!e[0].isIntersecting)v.pause();else if(!man&&!rm)v.play().catch(function(){})},{threshold:.05}).observe(s)}
+v.addEventListener('loadedmetadata',arm);
+v.addEventListener('playing',function(){s.classList.add('is-video');st(true);arm()});
+v.addEventListener('pause',function(){st(false)});
+v.addEventListener('timeupdate',function(){
+  if(end&&v.currentTime>=end)loopBack();
+  if(tc)tc.textContent=f(v.currentTime);
+});
+v.addEventListener('ended',function(){loopBack()});
+b.addEventListener('click',function(){if(v.paused){man=false;if((end&&v.currentTime>=end)||v.ended)v.currentTime=0;v.play()}else{man=true;v.pause()}});
+new IntersectionObserver(function(e){if(!e[0].isIntersecting)v.pause();else if(!man&&!rm){arm();v.play().catch(function(){})}},{threshold:.05}).observe(s)}
 if(!rm)s.addEventListener('pointermove',function(e){s.style.setProperty('--px',(e.clientX/innerWidth-.5).toFixed(2));s.style.setProperty('--py',(e.clientY/innerHeight-.5).toFixed(2))});
 })();
 </script>
@@ -5166,6 +5174,31 @@ requestAnimationFrame(loop)})();</script>
     <span class="ace-profiles__txt"><b>Signature</b><span>Email</span></span>
   </a>
 </nav>
+<style id="ace-v13-mobile-weare">
+/* We are ACE on phones: words stacked so they can be much bigger, photo starts large between them */
+@media (max-width:640px){
+  html body .ace-home .v8w{--mw:76vw;--mh:min(50vw,28svh)}
+  html body .ace-home .v8w__row{flex-direction:column;gap:.08em;font-size:23vw}
+  html body .ace-home .v8w__gap{width:1px;height:var(--mh)}
+  html body .ace-home .v8w__img{
+    left:50%;top:calc(50% - (1 - var(--e))*22%);
+    width:calc(var(--mw) + (100% - 16px - var(--mw))*var(--p));
+    height:calc(var(--mh) + (100% - 16px - var(--mh))*var(--p))}
+}
+/* Section labels: same outlined tag, larger text */
+.xs .xk,.ofc .ofc__k{font-size:clamp(.875rem,1vw,1rem)}
+.xs .xk{padding:8px 14px;border-radius:8px}
+/* In numbers: taller photo frames (rows grow with them, figures keep their size) */
+@media (min-width:901px) and (min-height:620px){
+  html body .ace-home .xs--stats{--rh:clamp(200px,calc((100svh - 160px)/3.4),300px)}
+  html body .ace-home .xs--stats .xr b{font-size:min(8.6rem,9vw)}
+  html body .ace-home .xs--stats .xr .xfr{height:var(--rh);width:auto;aspect-ratio:4/3}
+  html body .ace-home .xs--stats .xr>p{width:calc(var(--rh)*4/3)}
+}
+@media (max-width:900px){
+  html body .ace-home .xs--stats .xr .xfr{aspect-ratio:4/5}
+}
+</style>
 </body>
 </html>
 
